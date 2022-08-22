@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<title>LASTEST DATA</title>
+{% endblock %}
+
+{% block content %}
+
+    <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">EMPLOYEE ID</th>
+        <th scope="col">EMPLOYEE NAME</th>
+        <th scope="col">EMPLOYEE SALARY</th>
+        <th scope="col">EMAIL</th>
+        <th scope="col">PHOTO</th>
+        <th scope="col">UPDATE</th>
+        <th scope="col">DELETE</th>
+
+
+
+      </tr>
+    </thead>
+    <tbody>
+        {% for i in user %}
+      <tr>
+    
+        <td>{{i.eid}}</td>
+        <td>{{i.ename}}</td>
+        <td>{{i.esal}}</td>
+        <td>{{i.email}}</td>
+        {% if i.image %}
+        <td><img src="{{i.image.url}}" width="100" height="100"><br> <button class="btn btn-outline-success"><a href="{% url 'updateimage_url' i.eid %}">UPLOAD</a></button> <button class="btn btn-outline-danger"><a href="{% url 'remove_url' i.eid %}">REMOVE PICTURE</a></button></td>
+       {% else %}
+       <td><img src="{% static 'default.png' %}" width="100" height="100"><br>
+        <button class="btn btn-outline-success"><a href="{% url 'updateimage_url' i.eid %}">UPLOAD</a></button> <button class="btn btn-outline-danger"><a href="#">REMOVE PICTURE</a></button></td></td>
+       {% endif %}
+        <td><button class="btn btn-warning"><a href="{% url 'update_url' i.eid %}">UPDATE</a></button></td>
+        <td><button class="btn btn-danger"><a href="{% url 'delete_url' i.eid %}">DELETE</a></button></td>
+
+
+
+
+
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <div class="pagination justify-content-center">
+      {% if user.has_previous %}
+      <a href="{% url 'showdata_url' %}?page={{user.previous_page_number}}">Previous</a>
+      {% endif %}
+
+      <span>
+          page{{user.number}} of {{user.paginator.num_pages}}
+      </span>
+
+      {% if user.has_next %}
+      <a href="{% url 'showdata_url' %}?page={{user.next_page_number}}">Next</a>
+      {% endif %}
+  </div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>LASTEST DATA</title>
+{% endblock %}
+
+{% block content %}
+
+    <table class="table">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">EMPLOYEE ID</th>
+        <th scope="col">EMPLOYEE NAME</th>
+        <th scope="col">EMPLOYEE SALARY</th>
+        <th scope="col">EMAIL</th>
+        <th scope="col">PHOTO</th>
+
+      </tr>
+    </thead>
+    <tbody>
+        {% if obj %}
+      <tr>
+    
+        <td>{{obj.eid}}</td>
+        <td>{{obj.ename}}</td>
+        <td>{{obj.esal}}</td>
+        <td>{{obj.email}}</td>
+        <td><img src="{{obj.image.url}}" width="100" height="100"></td>
+
+
+      </tr>
+`      {% endif %}
+    </tbody>
+  </table>
+{% endblock %}

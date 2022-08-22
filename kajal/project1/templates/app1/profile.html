@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>PROFILE PIC</title>
+{% endblock %}
+
+{% block content %}
+
+<div class="container jumbotron">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ extended_pro_edit_form.as_p }}
+        {{ extended_pro_edit_form.errors }}
+        
+        <input type="hidden" name="next" value="{{request.GET.next}}">
+
+        {% if img.image %}
+        <img src="{{img.image.url}}" width="100" height="100">
+
+        {% else %}
+            No Profile Picture
+
+        {% endif %}
+        <input type="file" name="file"><br>
+        <button type="submit" class="btn btn-warning"><a>UPDATE</a></button>
+        <button type="button" class="btn btn-success"><a href="{% url 'showdata_url' %}">CANCLE</a></button>
+    </form>
+</div>
+
+{% endblock %}
